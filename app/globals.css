@@ -1,26 +1,334 @@
-@import "tailwindcss";
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─── Gilroy ────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Regular.woff') format('woff'),
+       url('/fonts/gilroy/Gilroy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-RegularItalic.woff') format('woff'),
+       url('/fonts/gilroy/Gilroy-RegularItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Medium.woff') format('woff'),
+       url('/fonts/gilroy/Gilroy-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-SemiBold.woff') format('woff'),
+       url('/fonts/gilroy/Gilroy-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Bold.woff') format('woff'),
+       url('/fonts/gilroy/Gilroy-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-ExtraBold.woff') format('woff'),
+       url('/fonts/gilroy/Gilroy-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ─── Reset ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #000000;
+  color: #ffffff;
+  font-family: 'Gilroy', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --color-bg:        #000000;
+  --color-accent:    #00AAFF;
+  --color-orange:    #FF4D00;
+  --color-white:     #ffffff;
+  --color-muted:     #DBDBDB;
+
+  --gradient-hero: linear-gradient(180deg, #000000 36%, #FF4D00 100%);
+
+  --content-width: 1360px;
+  --navbar-height: 84px;
+
+  --gap-4:   4px;
+  --gap-8:   8px;
+  --gap-12:  12px;
+  --gap-16:  16px;
+  --gap-20:  20px;
+  --gap-24:  24px;
+  --gap-32:  32px;
+  --gap-40:  40px;
+  --gap-48:  48px;
+  --gap-56:  56px;
+  --gap-64:  64px;
+  --gap-80:  80px;
+  --gap-96:  96px;
+}
+
+/* ─── Typography ────────────────────────────────────────────────────────────── */
+h1, .h1 {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+}
+
+h5, .h5 {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--color-white);
+}
+
+.body-text {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-white);
+}
+
+/* ─── Layout Helper ─────────────────────────────────────────────────────────── */
+.content {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--gap-32);
+}
+
+/* ─── Buttons ───────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-8);
+  height: 56px;
+  padding: 0 var(--gap-32);
+  border-radius: 100px;
+  font-family: 'Gilroy', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+}
+.btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn--primary {
+  background: rgba(255, 255, 255, 0.17);
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--color-white);
+  border: 1.5px solid var(--color-muted);
+}
+
+.btn--nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-8);
+  height: 44px;
+  padding: 0 var(--gap-20);
+  border-radius: 100px;
+  border: 1.5px solid var(--color-white);
+  background: transparent;
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+.btn--nav-cta:hover { background: rgba(255,255,255,0.08); }
+
+/* ─── Navbar ────────────────────────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--navbar-height);
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-40);
+  height: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--gap-32);
+}
+
+.navbar__logo {
+  flex-shrink: 0;
+  height: 32px;
+  width: auto;
+}
+
+.navbar__nav { flex: 1; }
+
+.navbar__list {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-32);
+  list-style: none;
+}
+
+.navbar__link {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-white);
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+.navbar__link:hover { opacity: 1; }
+
+/* ─── Hero ──────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: calc(var(--navbar-height) + var(--gap-80));
+  padding-bottom: 0;
+  background: var(--gradient-hero);
+  overflow: clip;
+}
+
+.hero__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-16);
+  margin-bottom: var(--gap-32);
+}
+
+.hero__eyebrow {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-white);
+  opacity: 0.8;
+  letter-spacing: 0.01em;
+}
+
+.hero__h1 {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  max-width: 1360px;
+  width: 100%;
+  margin-bottom: var(--gap-24);
+}
+
+.hero__h5 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-white);
+  max-width: 720px;
+  width: 100%;
+  margin-bottom: var(--gap-40);
+  opacity: 0.9;
+}
+
+.hero__ctas {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-16);
+  margin-bottom: var(--gap-80);
+}
+
+/* ─── Team silhouette ───────────────────────────────────────────────────────── */
+.hero__team {
+  position: relative;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  margin-top: auto;
+}
+
+/* ─── Laser Lines ───────────────────────────────────────────────────────────── */
+.hero__lines {
+  position: absolute;
+  top: 128px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  pointer-events: none;
+}
+
+.hero__line {
+  width: 100%;
+  height: 1.5px;
+  background: #ffffff;
+  box-shadow: 0px 0px 50px 16px #ffffff;
+}
+
+.hero__line--1 { opacity: 0.72; }
+.hero__line--2 { opacity: 0.64; }
+.hero__line--3 { opacity: 0.48; }
+.hero__line--4 { opacity: 0.32; }
+
+/* Image sits above lines */
+.hero__team-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: bottom;
 }
