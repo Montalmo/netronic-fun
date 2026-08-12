@@ -28,8 +28,10 @@ function IconHeadset() {
 }
 
 export default function Hero() {
-  const lineRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const teamImgRef = useRef<HTMLDivElement>(null);
+  const lineRefs    = useRef<(HTMLDivElement | null)[]>([]);
+  const teamImgRef  = useRef<HTMLDivElement>(null);
+  const bgOrangeRef = useRef<HTMLDivElement>(null);
+  const bgBlueRef   = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const SHOTS = [
@@ -80,8 +82,47 @@ export default function Hero() {
     });
   }, []);
 
+  useEffect(() => {
+    const orange = bgOrangeRef.current;
+    const blue   = bgBlueRef.current;
+    if (!orange || !blue) return;
+
+    const HOLD = 3000;
+    const FADE = 3000;
+
+    const cycle = () => {
+      // Fade out orange → black
+      orange.style.opacity = "0";
+      setTimeout(() => {
+        // Fade in blue
+        blue.style.opacity = "1";
+        setTimeout(() => {
+          // Hold blue, then fade out
+          setTimeout(() => {
+            blue.style.opacity = "0";
+            setTimeout(() => {
+              // Fade in orange
+              orange.style.opacity = "1";
+              // Hold orange, then repeat
+              setTimeout(cycle, HOLD);
+            }, FADE);
+          }, HOLD);
+        }, FADE);
+      }, FADE);
+    };
+
+    const startTimer = setTimeout(cycle, 5000);
+    return () => clearTimeout(startTimer);
+  }, []);
+
   return (
     <section className="hero">
+      {/* Gradient background layers */}
+      <div className="hero__bg">
+        <div ref={bgOrangeRef} className="hero__bg-layer hero__bg-orange" />
+        <div ref={bgBlueRef}   className="hero__bg-layer hero__bg-blue" />
+      </div>
+
       <div className="hero__top">
         <Logo />
         <p className="hero__eyebrow">

@@ -237,7 +237,7 @@ h5, .h5 {
   text-align: center;
   padding-top: calc(var(--navbar-height) + var(--gap-80));
   padding-bottom: 0;
-  background: var(--gradient-hero);
+  background: #000000;
   overflow: clip;
 }
 
@@ -362,7 +362,26 @@ h5, .h5 {
 .hero__top   { animation-delay: 0.1s; }
 .hero__h1    { animation-delay: 0.25s; }
 .hero__h5    { animation-delay: 0.4s; }
-.hero__ctas  { animation-delay: 0.44s; }
+.hero__ctas  { animation-delay: 0.55s; }
 
 /* Lines and team are controlled by JS in Hero.tsx */
 .hero__lines { opacity: 1; }
+
+/* Gradient layers */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__bg-layer {
+  position: absolute;
+  inset: 0;
+  transition: opacity 3s ease;
+}
+.hero__bg-orange {
+  background: linear-gradient(180deg, #000000 36%, #FF4D00 100%);
+}
+.hero__bg-blue {
+  background: linear-gradient(180deg, #000000 36%, #02ABE2 100%);
+  opacity: 0;
+}
