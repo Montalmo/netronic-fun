@@ -27,55 +27,57 @@ function IconHeadset() {
   );
 }
 
-// Animation config for each line
-const LINE_ANIMS = [
-  { delay: 700,  duration: 500, origin: "left",  glowDelay: 200 },
-  { delay: 950,  duration: 500, origin: "right", glowDelay: 200 },
-  { delay: 1200, duration: 500, origin: "left",  glowDelay: 200 },
-  { delay: 1450, duration: 500, origin: "right", glowDelay: 200 },
-];
-
-const TEAM_DELAY = 2100;
-
 export default function Hero() {
   const lineRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const teamRef  = useRef<HTMLDivElement>(null);
+  const teamImgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Animate each line individually via JS setTimeout
-    LINE_ANIMS.forEach(({ delay, duration, origin, glowDelay }, i) => {
-      const el = lineRefs.current[i];
-      if (!el) return;
+    const SHOTS = [
+      { delay: 0,   duration: 600, origin: "left"  },
+      { delay: 300, duration: 600, origin: "right" },
+      { delay: 600, duration: 600, origin: "left"  },
+      { delay: 900, duration: 600, origin: "right" },
+    ];
 
-      // Set initial state
-      el.style.transform       = "scaleX(0)";
-      el.style.transformOrigin = `${origin} center`;
-      el.style.boxShadow       = "none";
-      el.style.transition      = "none";
-
-      // Fire the shot
-      setTimeout(() => {
-        el.style.transition  = `transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-        el.style.transform   = "scaleX(1)";
-
-        // Glow appears after line finishes drawing
-        setTimeout(() => {
-          el.style.transition = "box-shadow 300ms ease";
-          el.style.boxShadow  = "0px 0px 50px 16px #ffffff";
-        }, duration + glowDelay);
-      }, delay);
-    });
-
-    // Team appears after all lines + glows
-    const team = teamRef.current;
+    const team = teamImgRef.current;
     if (team) {
-      team.style.opacity    = "0";
       team.style.transition = "none";
-      setTimeout(() => {
-        team.style.transition = "opacity 700ms ease";
-        team.style.opacity    = "1";
-      }, TEAM_DELAY);
+      team.style.opacity    = "0";
+      team.style.transform  = "translateY(40px)";
     }
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        SHOTS.forEach(({ delay, duration, origin }, i) => {
+          const el = lineRefs.current[i];
+          if (!el) return;
+
+          el.style.transition      = "none";
+          el.style.transform       = "scaleX(0)";
+          el.style.transformOrigin = `${origin} center`;
+          el.style.boxShadow       = "none";
+
+          setTimeout(() => {
+            el.style.transition = `transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+            el.style.transform  = "scaleX(1)";
+
+            setTimeout(() => {
+              el.style.transition = "box-shadow 400ms ease";
+              el.style.boxShadow  = "0px 0px 50px 16px #ffffff";
+            }, duration + 100);
+          }, delay);
+        });
+
+        // Team floats up after last line + glow settle
+        setTimeout(() => {
+          if (team) {
+            team.style.transition = "opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
+            team.style.opacity    = "1";
+            team.style.transform  = "translateY(0)";
+          }
+        }, 900 + 600 + 500);
+      });
+    });
   }, []);
 
   return (
@@ -107,9 +109,9 @@ export default function Hero() {
         </button>
       </div>
 
-      <div className="hero__team" ref={teamRef}>
+      <div className="hero__team">
         <div className="hero__lines" aria-hidden="true">
-          {LINE_ANIMS.map((_, i) => (
+          {[0, 1, 2, 3].map((i) => (
             <div
               key={i}
               className={`hero__line hero__line--${i + 1}`}
@@ -117,14 +119,16 @@ export default function Hero() {
             />
           ))}
         </div>
-        <Image
-          src="/images/netronic_team.png"
-          alt="Lasertag Team Silhouetten"
-          width={1360}
-          height={420}
-          priority
-          className="hero__team-img"
-        />
+        <div ref={teamImgRef} style={{ position: "relative", zIndex: 3 }}>
+          <Image
+            src="/images/netronic_team.png"
+            alt="Lasertag Team Silhouetten"
+            width={1360}
+            height={420}
+            priority
+            className="hero__team-img"
+          />
+        </div>
       </div>
     </section>
   );
