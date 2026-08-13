@@ -124,14 +124,14 @@ export default function Hero() {
       </div>
 
       <div className="hero__top">
-        <Logo />
+        <Logo className="hero__logo" />
         <p className="hero__eyebrow">
           Lasertag NetronicFun · Schlüsselfertige Lasertag-Lösungen · Magdeburg, Deutschland
         </p>
       </div>
 
       <h1 className="hero__h1">
-        Ihre Fläche. Unser Konzept. Ihr Gewinn.
+        Ihre Fläche.<br className="hero__h1-br" /> Unser Konzept.<br className="hero__h1-br" /> Ihr Gewinn.
       </h1>
 
       <h5 className="hero__h5">
