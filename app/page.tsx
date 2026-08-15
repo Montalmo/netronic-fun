@@ -1,2 +1,11 @@
 import Hero from "@/components/Hero";
-export default function Home() { return <Hero />; }
+import ZahlenSection from "@/components/Zahlensection";
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <ZahlenSection />
+    </>
+  );
+}

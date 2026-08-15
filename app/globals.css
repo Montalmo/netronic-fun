@@ -469,3 +469,143 @@ h5, .h5 {
   .hero__team { overflow: hidden; }
   .hero__team-img { width: 100%; height: auto; }
 }
+
+/* ─── Zahlen & Vertrauen ─────────────────────────────────────────────────────── */
+.zahlen {
+  position: relative;
+  padding: 160px 0;
+  overflow: hidden;
+}
+
+/* Radial gradient background */
+.zahlen::before {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  left: -200px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, #FF4D00 0%, #000000 70%);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.zahlen__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--gap-32);
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;
+}
+
+/* Left column */
+.zahlen__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 400px;
+  flex-shrink: 0;
+  width: 380px;
+}
+
+.zahlen__heading-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-24);
+  max-width: 480px;
+}
+
+.zahlen__h2 {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 600;
+  font-size: 56px;
+  line-height: 1.05;
+  color: var(--color-white);
+}
+
+.zahlen__sub {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.zahlen__social {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+.zahlen__social-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.zahlen__social-icons {
+  display: flex;
+  gap: var(--gap-12);
+}
+
+/* Stats grid */
+.zahlen__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.zahlen__card {
+  background: #121212;
+  border: 1px solid #252525;
+  border-radius: 24px;
+  padding: var(--gap-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-12);
+}
+
+.zahlen__card-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.zahlen__card-number {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.zahlen__card-label {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .zahlen { padding: 80px 0; }
+  .zahlen__inner { flex-direction: column; gap: var(--gap-48); padding: 0 16px; }
+  .zahlen__left  { width: 100%; min-height: unset; }
+  .zahlen__h2    { font-size: 36px; }
+  .zahlen__sub   { font-size: 16px; }
+  .zahlen__grid  { grid-template-columns: 1fr 1fr; gap: var(--gap-16); }
+  .zahlen__card  { padding: var(--gap-20); }
+  .zahlen__card-number { font-size: 32px; }
+}
+
+/* ─── Scroll animation ───────────────────────────────────────────────────────── */
+.zahlen__animate {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
